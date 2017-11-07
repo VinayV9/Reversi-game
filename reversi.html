@@ -18,7 +18,7 @@
     
 var imageList=[white, red, blue, green, grey, purple];
 
-var balls=[],ctx,turn=1;
+var balls=[],ctx,moves=0,player1=0,player2=0;
 
 
 function Ball(x, y){
@@ -44,13 +44,25 @@ function beginGame(e){
     
     var x=Math.floor(e.offsetX/60);
     var y=Math.floor((e.offsetY-100)/60);
+    var turn=moves%2;
     if(balls[x][y].color===0){
-        if(validMove(x,y,turn)) turn++;
+       
+        if(hasMove(turn)){
+            if(validMove(x,y,turn)) moves++;
+        }else{
+            var winner=gameEnds();
+            displayWinner(winner);
+            return;
+        }
         var place;
-        if(turn%2==0)place=2;
-        else place=1;
+        if(turn==0){
+            place=2;
+            player2++;
+        }else{
+            place=1; 
+            player1++;
+        } 
         balls[x][y].color=place;
-        // gameJudger();
     }
     paint();
 
@@ -79,13 +91,37 @@ function initialBoard(){
     balls[5][5].color=2;
 }
 
+
+function hasMove(turn){
+   for(var x=0;x<10;x++){
+       for(var y=0;y<10;y++){
+           validMove(x,y,turn);
+       }
+   }
+}
+
+function gameEnds(){
+   if(player1<player2) return 2;
+   else if(player1>player2) return 1;
+   else return 0;
+}
+
 function validMove(x, y, turn){
     if(turn%2==0){
-    //    validMoveOf_p2();
+        validMoveOf_player(2);
     }else{
-    //    validMoveOf_p1();
+        validMoveOf_player(1);
     }
     return true;
 }
+
+function validMoveOf_player(p){
+
+}
+
+function displayWinner(winner){
+    ;
+}
+
     </script>
 </html>
