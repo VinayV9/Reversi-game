@@ -6,20 +6,21 @@
         <link rel="stylesheet" href="reversi.css">
     </head>
     <body onload="initialize()">
-       <canvas id='canvas' width='600' height='700' ></canvas> 
+       <canvas id='canvas' width='600' height='650' ></canvas> 
        <img id='white' src="images/ball/white.png" alt="ball image" style="display: none;" >
        <img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
        <img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
        <img id='green' src="images/ball/green.png" alt="ball image" style="display: none;">
        <img id='grey' src="images/ball/grey.png" alt="ball image" style="display: none;">
        <img id='purple' src="images/ball/purple.png" alt="ball image" style="display: none;">
+       <audio src="sound/sound.wav" id='clicker'></audio>
     </body>
     <script>
     
 var imageList=[white, red, blue, green, grey, purple];
 
-var balls=[],ctx,moves=0,player1=0,player2=0,playerName="Red";
-
+var balls=[],ctx,moves=0,player1=2,player2=2,playerName="Red";
+var clicker=document.getElementById('clicker');
 
 function Ball(x, y){
     this.x1=x;
@@ -43,15 +44,22 @@ function initialize(){
 function beginGame(e){
     
     var x=Math.floor(e.offsetX/60);
-    var y=Math.floor((e.offsetY-100)/60);
+    var y=Math.floor((e.offsetY-50)/60);
     var turn;
     if(moves%2==0)turn=2;
     else turn =1;
+   
     if(balls[x][y].color===0){
         if(hasMove(turn)==1){
             if(validMove(x,y, turn, 1)==1) {
+                clicker.play();
                 ++moves;
                 paint();
+                if(palyer1+player2==50){
+                    var winner=gameEnds();
+                        displayWinner(winner);
+                    return;
+               }
             }
         }else{
             
@@ -61,10 +69,8 @@ function beginGame(e){
         }
 
         if(turn==2){
-             player2++;
             playerName="Blue";
         }else{
-            player1++;
             playerName="Red";
         } 
         
@@ -74,15 +80,18 @@ function beginGame(e){
 }
 
 function paint(){
+    ctx.clearRect(0,0,600,50);
     for(var x=0;x<10;x++){
         for(var y=0;y<10;y++){
-            ctx.drawImage(imageList[balls[x][y].color], x*60, y*60+100, 60, 60 );
+            ctx.drawImage(imageList[balls[x][y].color], x*60, y*60+50, 60, 60 );
         }
     }
-    ctx.font='bold , 20px, Open Sans';
+    ctx.font='h3 bold , 400px, Open Sans';
     ctx.textAlign='center';
-    ctx.fillText('Moves :'+ moves,150 ,50);
-    ctx.fillText('Player :'+playerName, 450, 50);
+    ctx.font.remove;
+    ctx.fillText('Player1 :'+ player1,150 ,20);
+    ctx.fillText('Player2 :'+ player2,150 ,40);
+    ctx.fillText(playerName+' Turn', 450, 25);
 }
 function createGameBoard(){
     for(var x=0;x<10;x++){
@@ -135,7 +144,7 @@ function validMoveOf_player(a, b, p, modify){
    
 	if (p == 1) entity = 1;
 	if (p == 2) entity = 2;
-    
+   
 	if (balls[x][y].color == 0){
        
 		//check  forword
@@ -144,7 +153,7 @@ function validMoveOf_player(a, b, p, modify){
 				if (balls[x - 1][y].color != entity){
 					i = x - 1;
 					while (balls[i][y].color != entity){
-						if (i - 1 == -1 || balls[i][y] == 0){
+						if (i - 1 == -1 || balls[i][y].color == 0){
 							c1 = 0;
 							break;
 						}
@@ -194,7 +203,7 @@ function validMoveOf_player(a, b, p, modify){
 		
 		if (y - 1 != -1){
 			if (balls[x ][y-1].color != 0){
-				if (balls[x][y-1] != entity){
+				if (balls[x][y-1].color != entity){
 					i = y - 1;
 					while (balls[x][i].color !=entity){
 						if (i - 1 == -1 || balls[x][i].color == 0){
@@ -346,6 +355,7 @@ function validMoveOf_player(a, b, p, modify){
 
     // flag ==1  for valid
     // console.log(flag);
+    if(flag==1&&modify==0) return 1;
 	if (flag){
 
 		if (p == 1){
@@ -367,7 +377,24 @@ function validMoveOf_player(a, b, p, modify){
 }
 
 function displayWinner(winner){
-    ;
+    var w,ws,l,ls;
+      if(winner==1){
+          w="Red" ;
+          s=player1;
+          l="Blue";
+          ls=player2;
+      }else{
+           w="Blue" ;
+           player2;
+           l="Red";
+           ls=player2;
+        }
+      ctx.clearRect(0,0,600,650);
+      ctx.font='bold 30px Open Sans';
+      ctx.fillText('winner:'+w,300,50);
+      ctx.fillText('score:'+ws,300,200);
+      ctx.fillText('Looser:'+l,300,300);
+      ctx.fillText('score:'+ls,300,600);
 }
 
     </script>
