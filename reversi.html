@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="reversi.css">
     </head>
     <body onload="initialize()">
-       <canvas id='canvas' width='600' height='700'></canvas> 
+       <canvas id='canvas' width='600' height='700' ></canvas> 
        <img id='white' src="images/ball/white.png" alt="ball image" style="display: none;" >
        <img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
        <img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
@@ -15,16 +15,10 @@
        <img id='purple' src="images/ball/purple.png" alt="ball image" style="display: none;">
     </body>
     <script>
-        var imageList=[white, red, blue, green, grey, purple];
-// imageList[0]="images/ball/orange.png";
-// imageList.red="images/ball/red.png";
-// imageList.blue="images/ball/blue.png";
-// imageList.green="images/ball/green.png";
-// imageList.purple="images/ball/purple.png";
-// imageList.grey="images/ball/grey.png";
+    
+var imageList=[white, red, blue, green, grey, purple];
 
 var balls=[],ctx;
-//  var imageList=["images/ball/orange.png","images/ball/green.png","images/ball/red.png","images/ball/blue.png","images/ball/grey.png","images/ball/purple.png"];
 
 
 function Ball(x, y){
@@ -35,22 +29,28 @@ function Ball(x, y){
 }
 
 function initialize(){
-    for(var x=0;x<10;x++){
-        balls[x]=[];
-        for(var y=0;y<10;y++){
-            balls[x][y]=new Ball(x,y);
-            balls[x][y].color=0;
-        }
-    }
-    balls[4][4].color=1;
-    balls[5][4].color=1;
-    balls[4][5].color=2;
-    balls[5][5].color=2;
+    createGameBoard();
     var canvas=document.getElementById("canvas");
     ctx=canvas.getContext("2d");
     paint();
+    initialBoard();
+    paint();
+    canvas.addEventListener('click', beginGame, false);
 }
 
+
+
+function beginGame(e){
+
+    var x=Math.floor(e.offsetX/60);
+    var y=Math.floor((e.offsetY-100)/60);
+//   console.log(balls[x][y].color);
+//   check(x,y);
+    balls[x][y].color=1;
+    paint();
+//   console.log(x);
+//   console.log(y);
+}
 
 function paint(){
     for(var x=0;x<10;x++){
@@ -58,7 +58,21 @@ function paint(){
             ctx.drawImage(imageList[balls[x][y].color], x*60, y*60+100, 60, 60 );
         }
     }
-    
+}
+function createGameBoard(){
+    for(var x=0;x<10;x++){
+        balls[x]=[];
+        for(var y=0;y<10;y++){
+            balls[x][y]=new Ball(x,y);
+            balls[x][y].color=0;
+        }
+    }
+}
+function initialBoard(){
+    balls[4][4].color=1;
+    balls[5][4].color=1;
+    balls[4][5].color=2;
+    balls[5][5].color=2;
 }
     </script>
 </html>
