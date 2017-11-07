@@ -18,7 +18,7 @@
     
 var imageList=[white, red, blue, green, grey, purple];
 
-var balls=[],ctx;
+var balls=[],ctx,turn=1;
 
 
 function Ball(x, y){
@@ -41,15 +41,19 @@ function initialize(){
 
 
 function beginGame(e){
-
+    
     var x=Math.floor(e.offsetX/60);
     var y=Math.floor((e.offsetY-100)/60);
-//   console.log(balls[x][y].color);
-//   check(x,y);
-    balls[x][y].color=1;
+    if(balls[x][y].color===0){
+        if(validMove(x,y,turn)) turn++;
+        var place;
+        if(turn%2==0)place=2;
+        else place=1;
+        balls[x][y].color=place;
+        // gameJudger();
+    }
     paint();
-//   console.log(x);
-//   console.log(y);
+
 }
 
 function paint(){
@@ -73,6 +77,15 @@ function initialBoard(){
     balls[5][4].color=1;
     balls[4][5].color=2;
     balls[5][5].color=2;
+}
+
+function validMove(x, y, turn){
+    if(turn%2==0){
+    //    validMoveOf_p2();
+    }else{
+    //    validMoveOf_p1();
+    }
+    return true;
 }
     </script>
 </html>
