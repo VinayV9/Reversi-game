@@ -7,7 +7,7 @@
     </head>
     <body onload="initialize()">
        <canvas id='canvas' width='600' height='650' ></canvas> 
-       <img id='white' src="images/ball/white.png" alt="ball image" style="display: none;" >
+       <img id='white' src="images/ball/whit.png" alt="ball image" style="display: none;" >
        <img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
        <img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
        <img id='green' src="images/ball/green.png" alt="ball image" style="display: none;">
@@ -55,7 +55,7 @@ function beginGame(e){
                 clicker.play();
                 ++moves;
                 paint();
-                if(palyer1+player2==50){
+                if(palyer1+player2==100){
                     var winner=gameEnds();
                         displayWinner(winner);
                     return;
@@ -380,21 +380,21 @@ function displayWinner(winner){
     var w,ws,l,ls;
       if(winner==1){
           w="Red" ;
-          s=player1;
+          ws=player1;
           l="Blue";
           ls=player2;
       }else{
            w="Blue" ;
-           player2;
+           ws=player2;
            l="Red";
            ls=player2;
         }
       ctx.clearRect(0,0,600,650);
       ctx.font='bold 30px Open Sans';
-      ctx.fillText('winner:'+w,300,50);
-      ctx.fillText('score:'+ws,300,200);
-      ctx.fillText('Looser:'+l,300,300);
-      ctx.fillText('score:'+ls,300,600);
+      ctx.fillText('winner:'+w,300,200);
+      ctx.fillText('score:'+ws,300,300);
+      ctx.fillText('Looser:'+l,300,400);
+      ctx.fillText('score:'+ls,300,500);
 }
 
     </script>
