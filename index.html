@@ -1,124 +1,118 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>reversi game</title>
-        <!-- <script src="reversi.js"></script> -->
-        <link rel="stylesheet" href="reversi.css">
-    </head>
-    <body onload="initialize()">
+	<head>
+		<title>reversi game</title>
+		<!-- <script src="reversi.js"></script> -->
+		<link rel="stylesheet" href="reversi.css">
+	</head>
+	<body onload="initialize()">
 		<div id="heading">
 			<h3>Game instructions:<a href="https://en.wikipedia.org/wiki/Reversi">click here</a></h3>
 		</div>
-       <canvas id='canvas' width='600' height='650' ></canvas> 
-       <img id='white' src="images/ball/whit.png" alt="ball image" style="display: none;" >
-       <img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
-       <img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
-       <img id='green' src="images/ball/green.png" alt="ball image" style="display: none;">
-       <img id='grey' src="images/ball/grey.png" alt="ball image" style="display: none;">
-       <img id='purple' src="images/ball/purple.png" alt="ball image" style="display: none;">
-       <audio src="sound/sound.wav" id='clicker'></audio>
-    </body>
-    <script>
-    
+	   <canvas id='canvas' width='600' height='650' ></canvas> 
+	   <img id='white' src="images/ball/whit.png" alt="ball image" style="display: none;" >
+	   <img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
+	   <img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
+	   <img id='green' src="images/ball/green.png" alt="ball image" style="display: none;">
+	   <img id='grey' src="images/ball/grey.png" alt="ball image" style="display: none;">
+	   <img id='purple' src="images/ball/purple.png" alt="ball image" style="display: none;">
+	   <audio src="sound/sound.wav" id='clicker'></audio>
+	</body>
+	<!-- <script src="/socket.io/socket.io.js"></script> -->
+
+	<script>
+	
 var imageList=[white, red, blue, green, grey, purple];
 
 var balls=[],ctx,moves=4,player1=2,player2=2,playerName="Red";
 var clicker=document.getElementById('clicker');
 
 function Ball(x, y){
-    this.x1=x;
-    this.y1=y;
-    // this.x2=x;
-    // this.y2=y;
+	this.x=x;
+	this.y=y;
+	// this.x2=x;
+	// this.y2=y;
 }
 
 function initialize(){
-    createGameBoard();
-    var canvas=document.getElementById("canvas");
-    ctx=canvas.getContext("2d");
-    paint();
-    initialBoard();
-    paint();
-    canvas.addEventListener('click', beginGame, false);
+	createGameBoard();
+	var canvas=document.getElementById("canvas");
+	ctx=canvas.getContext("2d");
+	paint();
+	initialBoard();
+	paint();
+	canvas.addEventListener('click', beginGame, false);
 }
 
 
 
 function beginGame(e){
-    
-    var x=Math.floor(e.offsetX/60);
-    var y=Math.floor((e.offsetY-50)/60);
-    var turn;
-    if(moves%2==0)turn=2;
-    else turn =1;
-   
-    if(balls[x][y].color===0){
-        if(hasMove(turn)==1){
-            if(validMove(x,y, turn, 1)==1) {
-                clicker.play();
-                ++moves;
-                paint();
-                if(palyer1+player2==100){
-                    var winner=gameEnds();
-                        displayWinner(winner);
-                    return;
-               }
-            }
-        }else{
-            
-            var winner=gameEnds();
-            displayWinner(winner);
-            return;
-        }
-
-        if(turn==2){
-            playerName="Blue";
-        }else{
-            playerName="Red";
-        } 
-        
-    }
-    paint();
+	
+	var x=Math.floor(e.offsetX/60);
+	var y=Math.floor((e.offsetY-50)/60);
+	var turn;
+	if(moves%2==0)turn=2;
+	else turn =1;
+	
+	if(balls[x][y].color===0){
+		if(hasMove(turn)==1){
+			if(validMove(x,y, turn, 1)==1) {
+				clicker.play();
+				++moves;
+				if(turn==2){
+				  playerName="Blue";
+			    }else{
+				   playerName="Red";
+			    } 
+				paint();	
+			}
+		}else{
+			var winner=gameEnds();
+			displayWinner(winner);
+			return;
+		}	
+	}
+	paint();
 
 }
 
 function paint(){
-    ctx.clearRect(0,0,600,50);
-    for(var x=0;x<10;x++){
-        for(var y=0;y<10;y++){
-            ctx.drawImage(imageList[balls[x][y].color], x*60, y*60+50, 60, 60 );
-        }
-    }
-    ctx.font='h3 bold , 400px, Open Sans';
-    ctx.textAlign='center';
-    ctx.font.remove;
-    ctx.fillText('Player1 :'+ player1,150 ,20);
-    ctx.fillText('Player2 :'+ player2,150 ,40);
-    ctx.fillText(playerName+' Turn', 450, 25);
+	ctx.clearRect(0,0,600,50);
+	for(var x=0;x<10;x++){
+		for(var y=0;y<10;y++){
+			ctx.drawImage(imageList[balls[x][y].color], x*60, y*60+50, 60, 60 );
+		}
+	}
+	ctx.font='h3 bold , 400px, Open Sans';
+	ctx.textAlign='center';
+	ctx.font.remove;
+	ctx.fillText('Player1 :'+ player1,150 ,20);
+	ctx.fillText('Player2 :'+ player2,150 ,40);
+	ctx.fillText(playerName+' Turn', 450, 25);
 }
 function createGameBoard(){
-    for(var x=0;x<10;x++){
-        balls[x]=[];
-        for(var y=0;y<10;y++){
-            balls[x][y]=new Ball(x,y);
+	for(var x=0;x<10;x++){
+		balls[x]=[];
+		for(var y=0;y<10;y++){
+			balls[x][y]=new Ball(x,y);
 			balls[x][y].color=0;
-			console.log(balls[x][y]);
-        }
-    }
+			//console.log(balls[x][y]);
+		}
+	}
 }
 function initialBoard(){
-    balls[4][4].color=1;
-    balls[5][4].color=1;
-    balls[4][5].color=2;
-    balls[5][5].color=2;
+	balls[4][4].color=1;
+	balls[5][4].color=1;
+	balls[4][5].color=2;
+	balls[5][5].color=2;
 }
 
 
 function hasMove(turn){
    for(var x=0;x<10;x++){
-       for(var y=0;y<10;y++){
-            if(validMove(x,y,turn, 0)==1) return 1;
-       }
+	   for(var y=0;y<10;y++){
+			if(validMove(x,y,turn, 0)==1) return 1;
+	   }
    }
    return 0;
 }
@@ -130,16 +124,16 @@ function gameEnds(){
 }
 
 function validMove(x, y, turn, modify){
-    if(turn%2==0){
-       return validMoveOf_player(x,y,1, modify);
-    }else{
-       return validMoveOf_player(x,y,2, modify);
-    }
-    
+	if(turn%2==0){
+	   return validMoveOf_player(x,y,1, modify);
+	}else{
+	   return validMoveOf_player(x,y,2, modify);
+	}
+	
 }
 
 function validMoveOf_player(a, b, p, modify){
-    var x, y, i,j ,flag=0;
+	var x, y, i,j ,flag=0;
 	var c1 = 0, c2 = 0, c3 = 0, c4 = 0, c5 = 0, c6 = 0, c7 = 0, c8 = 0;
 	var entity;
    
@@ -150,7 +144,7 @@ function validMoveOf_player(a, b, p, modify){
 	if (p == 2) entity = 2;
    
 	if (balls[x][y].color == 0){
-       
+	   
 		//check  forword
 		if (x-1!= -1){
 			if (balls[x-1][y].color != 0){
@@ -357,9 +351,9 @@ function validMoveOf_player(a, b, p, modify){
 
 	}
 
-    // flag ==1  for valid
-    // console.log(flag);
-    if(flag==1&&modify==0) return 1;
+	// flag ==1  for valid
+	// console.log(flag);
+	if(flag==1&&modify==0) return 1;
 	if (flag){
 
 		if (p == 1){
@@ -381,25 +375,25 @@ function validMoveOf_player(a, b, p, modify){
 }
 
 function displayWinner(winner){
-    var w,ws,l,ls;
-      if(winner==1){
-          w="Red" ;
-          ws=player1;
-          l="Blue";
-          ls=player2;
-      }else{
-           w="Blue" ;
-           ws=player2;
-           l="Red";
-           ls=player2;
-        }
-      ctx.clearRect(0,0,600,650);
-      ctx.font='bold 30px Open Sans';
-      ctx.fillText('winner:'+w,300,200);
-      ctx.fillText('score:'+ws,300,300);
-      ctx.fillText('Looser:'+l,300,400);
-      ctx.fillText('score:'+ls,300,500);
+	var w,ws,l,ls;
+	  if(winner==1){
+		  w="Red" ;
+		  ws=player1;
+		  l="Blue";
+		  ls=player2;
+	  }else{
+		   w="Blue" ;
+		   ws=player2;
+		   l="Red";
+		   ls=player2;
+		}
+	  ctx.clearRect(0,0,600,650);
+	  ctx.font='bold 30px Open Sans';
+	  ctx.fillText('winner:'+w,300,200);
+	  ctx.fillText('score:'+ws,300,300);
+	  ctx.fillText('Looser:'+l,300,400);
+	  ctx.fillText('score:'+ls,300,500);
 }
 
-    </script>
+	</script>
 </html>
