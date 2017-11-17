@@ -22,14 +22,14 @@
     
 var imageList=[white, red, blue, green, grey, purple];
 
-var balls=[],ctx,moves=0,player1=2,player2=2,playerName="Red";
+var balls=[],ctx,moves=4,player1=2,player2=2,playerName="Red";
 var clicker=document.getElementById('clicker');
 
 function Ball(x, y){
     this.x1=x;
     this.y1=y;
-    this.x2=x;
-    this.y2=y;
+    // this.x2=x;
+    // this.y2=y;
 }
 
 function initialize(){
@@ -101,7 +101,8 @@ function createGameBoard(){
         balls[x]=[];
         for(var y=0;y<10;y++){
             balls[x][y]=new Ball(x,y);
-            balls[x][y].color=0;
+			balls[x][y].color=0;
+			console.log(balls[x][y]);
         }
     }
 }
