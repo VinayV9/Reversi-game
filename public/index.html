@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>reversi game</title>
+		<link rel="stylesheet" href="css/reversi.css">
+	</head>
+	<body onload="initialize()">
+		<div id="heading">
+			<h3>Game instructions:<a href="https://en.wikipedia.org/wiki/Reversi">click here</a></h3>
+		</div>
+	   <canvas id='canvas' width='600' height='650' ></canvas> 
+	   <img id='white' src="images/ball/whit.png" alt="ball image" style="display: none;" >
+	   <img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
+	   <img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
+	   <img id='green' src="images/ball/green.png" alt="ball image" style="display: none;">
+	   <img id='grey' src="images/ball/grey.png" alt="ball image" style="display: none;">
+	   <img id='purple' src="images/ball/purple.png" alt="ball image" style="display: none;">
+	   <audio src="audio/sound.wav" id='clicker'></audio>
+	</body>
+	<script src="/socket.io/socket.io.js"></script>
+	<script src="js/reversi.js"></script>
+	<script src="js/printBoard.js"></script>
+	<script src="js/gameBoard.js"></script>
+	<script src="js/judgePlayer.js"></script>
+	<script src="js/validMove.js"></script>
+</html>
