@@ -44,7 +44,10 @@ function beginGame(e){
 					return;
 				}
 				socket.emit('updateBoard',balls);
-				paint();	
+				socket.on('updateBoard', function(soBalls){
+					balls=soBalls;
+					paint();
+				});	
 			}
 		}else{
 			var winner=gameEnds();

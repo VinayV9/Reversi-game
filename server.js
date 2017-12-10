@@ -10,7 +10,7 @@ app.use('/', express.static(__dirname + '/public'));
 io.on('connection', function(socket){
     console.log("someone connected")
     socket.on('updateBoard', function(balls){
-       console.log(balls)
+       io.emit('updateBoard', balls)
     })
 })
 
