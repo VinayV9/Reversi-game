@@ -5,7 +5,10 @@ var balls=[],ctx,moves=4,player1=2,player2=2,playerName="Red";
 var clicker=document.getElementById('clicker');
 
 
+var socket=io();
+
 function initialize(){
+	
 	createGameBoard();
 	var canvas=document.getElementById("canvas");
 	ctx=canvas.getContext("2d");
@@ -19,6 +22,7 @@ function beginGame(e){
 	
 	var x=Math.floor(e.offsetX/60);
 	var y=Math.floor((e.offsetY-50)/60);
+
 	var turn;
 	if(moves%2==0)turn=2;
 	else turn =1;
@@ -39,6 +43,7 @@ function beginGame(e){
 					displayWinner(winner);
 					return;
 				}
+				socket.emit('updateBoard',balls);
 				paint();	
 			}
 		}else{
