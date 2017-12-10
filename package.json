@@ -1,0 +1,24 @@
+{
+  "name": "reversi_game",
+  "version": "1.0.0",
+  "description": "two player online game ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VinayV9/Reversi-game.git"
+  },
+  "author": "vinay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VinayV9/Reversi-game/issues"
+  },
+  "homepage": "https://github.com/VinayV9/Reversi-game#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}
