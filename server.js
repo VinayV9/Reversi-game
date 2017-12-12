@@ -8,7 +8,7 @@ var port =(process.env.PORT || 3000)
 app.use('/', express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
-    console.log("someone connected")
+    console.log(socket.id)
     socket.on('updateBoard', function(balls){
        io.emit('updateBoard', balls)
     })

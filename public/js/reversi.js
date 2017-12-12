@@ -6,7 +6,6 @@ var clicker=document.getElementById('clicker');
 
 
 var socket=io();
-
 function initialize(){
 	
 	createGameBoard();
