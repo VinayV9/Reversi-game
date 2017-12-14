@@ -29,8 +29,6 @@ function beginGame(e){
 	if(balls[x][y].color===0){
 		if(hasMove(turn)==1){
 			if(validMove(x,y, turn, 1)==1) {
-				
-				clicker.play();
 				++moves;
 				if(turn==2){
 				  playerName="Blue";
@@ -46,6 +44,7 @@ function beginGame(e){
 				socket.on('updateBoard', function(soBalls){
 					balls=soBalls;
 					paint();
+                    clicker.play();
 				});	
 			}
 		}else{
