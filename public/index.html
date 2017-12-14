@@ -8,7 +8,7 @@
 		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
 		<script src="socket.io/socket.io.js"></script>
 	</head>
-	<body  onload="initialize()" >
+	<body  onload="initialize()" ng-app='myApp'>
        
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
@@ -18,11 +18,14 @@
 			<ul class="nav navbar-nav">
 				<li><a href="https://en.wikipedia.org/wiki/Reversi">Game instructions</a></li>
 			</ul>
+			<form class="navbar-form navbar-right" ng-controller='gameCreateCtrl'>
+				<button type="submit" class="btn btn-danger"  ng-submit='create()'>Create</button>
+			</form>
 			<form class="navbar-form navbar-right">
 				<div class="form-group">
-				<input type="text" class="form-control" placeholder="Enter your name" id='playerName'>
+				<input type="text" class="form-control" placeholder="Enter code to start game" id='playerName'>
 				</div>
-				<button type="submit" class="btn btn-danger" ng-controller='searchCtrl'>Join</button>
+				<button type="submit" class="btn btn-danger" ng-controller='gameJoinCtrl'>Join</button>
 			</form>
 			</div>
 		</nav>
