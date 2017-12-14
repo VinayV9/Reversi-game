@@ -1,52 +1,65 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>reversi game</title>
-		<link rel="stylesheet" href="css/reversi.css">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
-		<script src="socket.io/socket.io.js"></script>
-	</head>
-	<body  onload="initialize()" ng-app='myApp'>
-       
-		<nav class="navbar navbar-inverse navbar-fixed-top">
-			<div class="container-fluid">
+
+<head>
+	<title>reversi game</title>
+	<link rel="stylesheet" href="css/reversi.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.3.2/angular-ui-router.js"></script>
+	<script src="socket.io/socket.io.js"></script>
+</head>
+
+<body onload="initialize()" ng-app='myApp'>
+
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container-fluid">
 			<div class="navbar-header">
-			<span class="navbar-brand">Reversi Game</span> 		
+				<span class="navbar-brand">Reversi Game</span>
 			</div>
+
 			<ul class="nav navbar-nav">
-				<li><a href="https://en.wikipedia.org/wiki/Reversi">Game instructions</a></li>
+				<li>
+					<a href="https://en.wikipedia.org/wiki/Reversi">Game instructions</a>
+				</li>
 			</ul>
-			<form class="navbar-form navbar-right" ng-controller='gameCreateCtrl'>
-				<button type="submit" class="btn btn-danger"  ng-submit='create()'>Create</button>
-			</form>
-			<form class="navbar-form navbar-right">
-				<div class="form-group">
-				<input type="text" class="form-control" placeholder="Enter code to start game" id='playerName'>
-				</div>
-				<button type="submit" class="btn btn-danger" ng-controller='gameJoinCtrl'>Join</button>
-			</form>
+			<div ng-controller='gameCreateCtrl'>
+				<form class="navbar-form navbar-right">
+					<div class="navbar-header" ng-show="generateCode">
+						<span class="navbar-brand">{{Code}}</span>
+					</div>
+					<button type="submit" class="btn btn-danger" ng-click='create()' ng-show='!generateCode'>Create</button>
+				</form>
+				<form class="navbar-form navbar-right" ng-show='!generateCode'>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Enter code to start game" id='playerName'>
+					</div>
+					<button type="submit" class="btn btn-danger" ng-controller='gameJoinCtrl'>Join</button>
+				</form>
 			</div>
-		</nav>
+
+		</div>
+	</nav>
 	</br>
 	</br>
 	<div class="container">
-	<div class="col-lg-3 col-lg-offset-3"  class="border border-danger">
-			<canvas id='canvas' width='600' height='650' ></canvas> 
-			<img id='white' src="images/ball/whit.png" alt="ball image" style="display: none;" >
+		<div class="col-lg-3 col-lg-offset-3" class="border border-danger">
+			<canvas id='canvas' width='600' height='650'></canvas>
+			<img id='white' src="images/ball/whit.png" alt="ball image" style="display: none;">
 			<img id='red' src="images/ball/red.png" alt="ball image" style="display: none;">
 			<img id='blue' src="images/ball/blue.png" alt="ball image" style="display: none;">
 			<img id='green' src="images/ball/green.png" alt="ball image" style="display: none;">
 			<img id='grey' src="images/ball/grey.png" alt="ball image" style="display: none;">
 			<img id='purple' src="images/ball/purple.png" alt="ball image" style="display: none;">
 			<audio src="audio/sound.wav" id='clicker'></audio>
+		</div>
 	</div>
-</div>
-	</body>
-	<script src="js/reversi.js"></script>
-	<script src="js/printBoard.js"></script>
-	<script src="js/gameBoard.js"></script>
-	<script src="js/judgePlayer.js"></script>
-	<script src="js/validMove.js"></script> 
+</body>
+<script src="ng/app.js"></script>
+<script src="js/reversi.js"></script>
+<script src="js/printBoard.js"></script>
+<script src="js/gameBoard.js"></script>
+<script src="js/judgePlayer.js"></script>
+<script src="js/validMove.js"></script>
+
 </html>
