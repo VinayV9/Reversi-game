@@ -1,6 +1,13 @@
 var app = angular.module('myApp', []);
-app.controller('gameJoinCtrl', function($scope) {
-   ;
+app.controller('gameJoinCtrl', function($scope,$http) {
+   $scope.joinGame=function(){
+       $http.post('/joinGame', ).
+       then(function(res){
+          console.log("posted successfully");
+       }).catch(function(res){
+           console.error("error in posting");
+       })
+   }
 });
 
 app.controller('gameCreateCtrl',function($scope, $http){

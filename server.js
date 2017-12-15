@@ -18,9 +18,13 @@ io.on('connection', function(socket){
 
 var gameIds=[]
 app.post('/start2Player', function(req, res){
-    console.log(req.body)
      gameIds.push(req.body.code)
+     console.log(gameIds)
      res.sendStatus(200)
+})
+
+app.post('/joinGame', function(req,res){
+    
 })
 
  http.listen(port, function(){

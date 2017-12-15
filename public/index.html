@@ -32,9 +32,9 @@
 				</form>
 				<form class="navbar-form navbar-right" ng-show='!generateCode'>
 					<div class="form-group">
-						<input type="text" class="form-control" placeholder="Enter code to start game" id='playerName'>
+						<input type="text" class="form-control" placeholder="Enter 6 digit code to start game" id='playerName'>
 					</div>
-					<button type="submit" class="btn btn-danger" ng-controller='gameJoinCtrl'>Join</button>
+					<button type="submit" class="btn btn-danger" ng-controller='gameJoinCtrl' ng-click='joinGame()'>Join</button>
 				</form>
 			</div>
 
